@@ -19,6 +19,7 @@ public class Hello2{}
 
 //Hello2.java or Hello3.java or Hello4.java
 //public class가 없으면 2클래스 모두 소스파일 이름이 될 수 있음
+//main함수를 가지고 있는 클래스 이름은 소스파일이름과 같아야 정상적으로 실행 가능
 class Hello2{}
 class Hello3{}
 class Hello4{}
@@ -55,5 +56,22 @@ System.out.println("현재 채널은 " + t1.channel + "입니다.");
 //현재 채널은 7입니다.
 System.out.println("현재 채널은 " + t2.channel + "입니다.");
 //현재 채널은 0입니다
+```
+
+
+
+객체 배열
+
+- 객체 배열 = 참조변수 배열
+
+```java
+Tv t1 = new Tv();
+Tv t2 = new Tv();
+Tv t3 = new Tv();
+//객체 배열
+Tv[] tㅍArr = new Tv[3];
+tvArr[0] = new Tv();
+tvArr[1] = new Tv();
+tvArr[2] = new Tv();
 ```
 
