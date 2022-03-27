@@ -48,13 +48,20 @@ class Card{
 
 ```java
 ///클래스 이용
-Card c = new Card();
-c.kind = "HEART"; //iv
-c.number = 5;
+Card c1 = new Card();
+Card c2 = new Card();
+c1.kind = "HEART"; //iv
+c1.number = 5;
 
-c.width = 200;   //cv but not commanded
-c.height = 300;
+c2.kind = "SPADE";
+c2.number = 3;
 
+"""  //width and height is both class variable so c1 and c2 both width and height changed
+c1.width = 200;   //cv but not recommanded
+c1.height = 300;
+"""
+
+//recommanded
 Card.width = 200; //cv how usually use. 
 Card.height = 300;
 ```
