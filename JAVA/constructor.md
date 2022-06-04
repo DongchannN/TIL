@@ -143,3 +143,54 @@ Car(String color, String gearType, int door) {
 
 ### 변수의 초기화
 
+지역변수 -> 사용 전 수동 초기화 해야함.(에러 방지)
+
+인스턴스 변수, 클래스 변수 -> 자동초기화 됨.
+
+1. 명시적 초기화   //간단초기화 
+
+   ```java
+   class Car {
+     int door = 4;
+     Engine e = new Engine();
+   }
+   ```
+
+   
+
+2. 초기화 블럭  //복잡초기화 
+
+   인스턴스 초기화 블럭 : {}
+
+   클래스 초기화 블럭 : static {}
+
+3. 생성자 (iv 초기화)  //복잡초기화
+
+   ```java
+   Car(String color, String gearType, int door) {
+     this.color = color;
+     this.gearType = gearType;
+     this.door = door;
+   }
+   ```
+
+   
+
+```java
+class StaticBlockTest {
+  static int[] arr = new int[10]; //명시적 초기화 (간단초기화)
+  
+  static { //클래스 초기화 블럭 - 난수로 채우기.
+    for(int i =0; i<arr.length; i++) {
+      arr[i] = (int) (Math.random()*10)+1;
+    }
+}
+```
+
+
+
+### 맴버변수의 초기화
+
+클래스 변수 초기화 시점 : 클래스가 처음으로 로딩 될 때 단 한번
+
+인스턴스 변수 초기화 시점 : 인스턴스가 생성될 때 마다
