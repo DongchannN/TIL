@@ -6,6 +6,12 @@
 
 클래스 A, B간의 관계가 A is a B 일 때 주로 상속 사용
 
+- 자바는 단일 상속만을 허용. (충돌 문제를 방지.) -> 상속(비중이 높은 클래스)과 포함 섞기.
+
+- 인터페이스 이용 시 충동 문제를 해결하며 다중 상속 가능.
+
+  
+
 ```java
 class Parent {
   int age;
@@ -93,6 +99,23 @@ public class CompositeTest {
     System.out.println("c.t.type="+c.t.type);
     System.out.println("c.name="+c.name);
   }
+}
+```
+
+
+
+### Object Class
+
+기본적으로 클래스는 자동적으로 오브젝트 클래스를 상속받음.
+
+Object Class : toString(),equals(Object obj), hashCode() 등 11개 메서드 기본 제공.
+
+```java
+class Tv extends Object {  //extends Object -> 작성 불필요(컴파일러가 자동적으로 추가)
+  
+}
+class SmartTv extends Tv {
+  
 }
 ```
 
