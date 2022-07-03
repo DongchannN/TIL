@@ -29,5 +29,8 @@ Scanner scanner = new Scanner(inputstream);
 InputStreamReader sr = new InputStreamReader(inputstream);
 //InputStream inputstream = System.in 생략하고 아래와 같이 표현 가능.
 InputStreamReader sr = new InputStreamReader(System.in);
+//InputStreamReader의 특징.
+//바이트 단위 데이터를 문자(character) 단위 데이터로 처리할 수 있도록 변환해준다.
+//char 배열로 데이터를 받을 수 있다.
 ```
 
