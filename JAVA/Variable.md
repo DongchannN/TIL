@@ -1,3 +1,24 @@
+### Type of Variable
+
+- Primitive type(기본형)
+
+  boolean, char, byte, short, int, long, float, double -> only 8.
+
+  실제 값을 저장.
+
+- Reference type(참조형)
+
+  Else (String, System, ...)
+
+  어떤 값이 저장되어있는 주소를 값으로 가짐.
+
+  ```java
+  Date today; //declare Reference type variable
+  today = new Date(); // save the object's id in today
+  ```
+
+  
+
 ### Variable and Constant.
 
 - 01 Variable
@@ -12,13 +33,21 @@
 - 02 Constant
 
   ```java
+  //상수의 이름은 모두 대문자로 하는 것이 관례
+  //여러단어로 이루어지면 _로 구분 (ex. MAX_VALUE)
   final int MAX = 300; //can not change.
-  int MAX = 400; //ERROR
+  MAX = 400; //ERROR
+  
+  final int MIN; //ERROR 선언과 동시에 초기화 해야함.
   ```
 
 - 03 Literal 
 
-  value of the Variable or Constant.
+  여기서의 상수(Constant)는 저장하면 변경 불가능한 저장공간의 의미.
+
+  우리가 알고있는 값들에 관한 상수는 의미의 혼돈을 방지하기 위해 리터럴(Literal)이라고 부름.
+
+  
 
 - 04 Use
 
@@ -34,7 +63,10 @@
   ```
 
   - Range of variable > literal : OK
+
   - Range of variable < literal : ERROR
+
+    
 
 - 05 Char and String
 

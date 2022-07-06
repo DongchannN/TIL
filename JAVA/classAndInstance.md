@@ -10,7 +10,7 @@
 클래스
 
 - 객체를 정의해 놓은 것, 클래스는 객체를 생성하는데 사용
-- 객체는 실제로 존재하는 것(사물, 개념) 객체 = 속성(변수) + 기능(메소드)
+- 객체는 실제로 존재하는 것(사물, 개념), 객체 = 속성(변수) + 기능(메소드)
 
 ```java
 //Hello2.java   //소스파일이름 = public class 이름
@@ -30,7 +30,7 @@ class Hello4{}
 
 - 인스턴스 : 특정 클래스로부터 생성된 객체.  클래스 --> 인스턴스(객체)
 
-
+ex) TV는 객체, TV클래스를 이용하여 TV라는 인스턴스를 만들어 냄.
 
 객체의 생성, 사용
 
@@ -44,7 +44,7 @@ Class Tv {
   void channelDown { channel--;}
 }
 
-Tv = t;  //Tv클래스 타입의 참조변수 t선언
+Tv t;  //Tv클래스 타입의 참조변수 t선언
 t= new Tv(); //Tv인스턴스를 생성한 후, 생성된 Tv인스턴스의 주소를 t에 저장
 
 Tv t1 = new Tv(); //위와 같음
@@ -69,9 +69,46 @@ Tv t1 = new Tv();
 Tv t2 = new Tv();
 Tv t3 = new Tv();
 //객체 배열
-Tv[] tㅍArr = new Tv[3];
+Tv[] tvArr = new Tv[3];
 tvArr[0] = new Tv();
 tvArr[1] = new Tv();
 tvArr[2] = new Tv();
+//간단히 표현
+Tv[] tvArr = {new Tv(), new Tv(), new Tv()};
+//객체의 수가 많을 때
+Tv[] tvArr = new Tv[50];
+for(int i = 0; i < 50; i++) {
+  tvArr[i] = new Tv();
+}
+```
+
+
+
+### 클래스
+
+변수 : 하나의 데이터를 저장할 수 있는 공간
+
+배열 : 같은 종류의 여러 데이터를 하나로 저장할 수 있는 공간
+
+구조체 : 서로 관련된 여러 데이터를 하나로 저장할 수 있는 공간
+
+클래스 : 데이터와 함수의 결함 (구조체 + 함수)
+
+```java
+int hour1,hour2,hour3;
+int minute1,minute2,minute3;
+int second1, second2, second3;
+//아래와 같이 사용자 정의로 시간이라는 클래스로 묶을 수 있음, 객체지향적 코드
+class Time{
+  int hour;
+  int minute;
+  int second;
+}
+Time t1 = new Time();
+Time t2 = new Time();
+Time t3 = new Time();
+t1.hour =12;
+t1.minute = 34;
+t1.second = 56;
 ```
 
