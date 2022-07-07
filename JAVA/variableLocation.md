@@ -13,7 +13,7 @@ class Variables
 }
 ```
 
-- 클래스 변수(class variable) : 클래스 영억안에서 클래스가 메모리에 올라갈 때 생성(클래스가 필요할 때) --> 객체생성 필요 없음.(아무때나 사용 가능)
+- 클래스 변수(class variable) : 클래스 영억안에서 클래스가 메모리에 올라갈 때 생성(클래스가 필요할 때) --> 객체생성 필요 없음.(아무때나 사용 가능). 위와 같은 클래스에서는 Variables.cv와 같이 사용.
 
 ​	CPU  <--->  메모리(RAM)  <---> 하드
 
@@ -41,8 +41,8 @@ class Card{
   String kind; //instance variable
   int number;
   
-  static int width; //class variable
-  static int height:
+  static int width = 100; //class variable
+  static int height = 150;
 }
 ```
 
@@ -57,7 +57,7 @@ c2.kind = "SPADE";
 c2.number = 3;
 
 """  //width and height is both class variable so c1 and c2 both width and height changed
-c1.width = 200;   //cv but not recommanded
+c1.width = 200;   //cv but not recommanded(인스턴스 변수로 오해받을 수 있음.)
 c1.height = 300;
 """
 
