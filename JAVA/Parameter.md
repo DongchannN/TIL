@@ -16,9 +16,9 @@ class Eg {
     System.out.println("main_x= "+d.x);
   }
   
-  static void change(int x) { //기본형 매개변수(Primitive parameter).
+  static void change(int x) { //x는 기본형 매개변수(Primitive parameter).
     x = 1000;    //지역변수 x(main 함수의 x와 이름은 같지만 저장위치가 다름.)
-    System.out.println(x);
+    System.out.println(x); //1000출력.
   }
 }
 
@@ -31,6 +31,8 @@ main_x= 10
 
 
 ### 참조형 매개변수(Reference Parameter)
+
+참조형 매개변수는 값이 아닌 주소가 복사됨.
 
 ```java
 class Data { int x; }
@@ -46,7 +48,7 @@ class Eg {
   }
   
   static void change(Data d) { //참조형 매개변수(Reference parameter).
-    d.x = 1000;   
+    d.x = 1000;   //d.x의 주소에 바로 1000값으로 변경했기 때문에 메서드를 종료해도 d.x는 10이 아닌 1000.
     System.out.println(x);
   }
 }
@@ -56,9 +58,29 @@ class Eg {
 1000
 ```
 
+배열 또한 참조형 매개변수로 사용 할 수 있음.
+
+```java
+class ReferencePara {
+  public static void main(String[] args) {
+    int[] x = {5};
+    System.out.println(x[0]); //5출력
+    change(x);
+    System.out.println(x[0]); //120출력
+    
+  }
+  
+  static void change(int[] x) {//배열은 참조형 매개변수.
+    x[0] = 120;
+  }
+}
+```
+
 
 
 ### 참조형 반환타입
+
+반환타입 또한 참조형이 될 수 있음.
 
 ```java
 class Data { int x; }
@@ -87,4 +109,6 @@ d.x= 10
 d2.x= 10
 
 ```
+
+
 
