@@ -17,7 +17,7 @@ Tv tv = new SmartTv();
 SmartTv st = new Tv();  //컴파일 에러.
 ```
 
-위와 같은 경우 인스턴스인 Tv보다 참조변수인 SmartTv의 멤버가 더 많으므로 컴파일 에러가 발생함.(쉽게 말하면 인스턴스에 없는 멤버를 사용하려 하기 때문에 에러. )
+위와 같은 경우 인스턴스인 Tv보다 참조변수인 SmartTv의 멤버가 더 많으므로 컴파일 에러가 발생함.(쉽게 말하면 인스턴스에 없는 멤버를 사용하려 하기 때문에 에러. 
 
 
 
@@ -213,6 +213,48 @@ class Main {
 실제 인스턴스가 FireEngine이여도 Object와 Car클래스는 조상 클래스이므로 FireEngine인스턴스는 Object와 Car인스턴스를 포함하고 있기 때문이다.
 
 실제 인스턴스 뿐만 아니라 조상타입도 instanceof에서 참을 반환하고 참이므로 형변환을 해도 아무 문제가 없다.
+
+
+
+### 참조변수와 인스턴스의 연결
+
+조상 클래스에 선언된 멤버변수와 같은 이름의 인스턴스 변수를 자손 클래스에 중복으로 정의 했을 때 조상타입의 참조변수로 자손 인스턴스를 참조하는 경우와 자손타입의 참조변수로 자손 인스턴스를 참조하는 경우 다른 결과가 나온다
+
+메서드의 경우 조상클래스의 메서드를 자손클래스에서 오버라이딩 한 경우에는 항상 실제 인스턴스의 메소드가 호출되지만 멤버변수의 경우 참조변수의 타입에 따라 달라진다.
+
+```java
+class Main {
+  public static void main(String[] args) {
+    Parent p = new Child();
+    Child c = new Child();
+    
+    System.out.println(p.x);  //100출력
+    p.method(); //Child 클래스의 Method 실행.
+    
+    System.out.println(c.x);  //300출력
+    c.method(); //당현히 Child 클래스의 Method 실행.
+  }
+}
+
+class Parent {
+  int x = 100;
+  
+  void method() {
+    System.out.println("Parent Method!");
+  }
+}
+
+class Child extends Parent {
+  int x = 300;
+  
+  void method() {
+    System.out.println("Child Method!!!");
+    System.out.println("x = " + x);
+    System.out.println("super.x = " + super.x);  //super.x = 100 조상 클래스의 x값.
+    System.out.println("this.x =" + this.x);  //this.x = 300 Child클래스의 x값.
+  }
+}
+```
 
 
 
@@ -449,3 +491,63 @@ class Main {
 }
 ```
 
+위와 같은 경우 배열의 크기가 지정되어있다. 배열의 크기를 유동적으로 만들고 싶으면 Vector클래스를 사용하면 된다.
+
+
+
+```java
+class Buyer {
+  int money = 1000;
+  int bonusPoint = 0;
+  
+  Vector item = new Vector(); //Vector 객체 생성.
+  
+  void buy(Product p) {
+    if(money < p.price) {
+      System.out.println("잔액부족");
+      return;
+    }
+    money -= p.price;
+    bonusPoint += p.bonusPoint;
+    item.add(p);    //구입한 제품을 Vector에 저장한다.
+    System.out.println(p + " 구매");
+  }
+  
+  void refund(Product p) {
+    if(item.remove(p)) {
+      money += p.price;
+      bonusPoint -= p.bonusPoint;
+      System.out.println(p + " 반품");
+    }else {
+      System.out.println("해당 제품 구매내역 없음.");
+    }
+  }
+  
+  void summary() {
+    int sum = 0;
+    String itemList = "";
+    
+    if(item.isEmpty()) { //item(Vector)이 비어있으면 true 반환.
+      System.out.println("구매 목록 없음.");
+      return; //메서드 종료.
+    }
+    
+    for(int i = 0; i < item.size(); i++) {
+      Product p = (Product) item.get(i);
+      sum += p.price;
+      itemList += (i=0) "" + p :  ", " + p; //i값이 0이면 'p'추가 아니면 ', p'추가.
+    }
+    System.out.println("총 금액 : " + sum);
+    System.out.println("구입 내역 : " + itemList);
+  }
+}
+```
+
+위는 Vector 클래스를 이용해 작성한 코드이다.
+
+- Vector v = new Vector();  :  벡터 인스턴스 생성(크기 10, 그 이상의 인스턴스가 저장되면 자동으로 크기가 커짐.)
+- boolean b = v.add(Object o) : 벡터에 o를 추가한다. 추가에 성공하면 true 실패하면 false를 반환한다.
+- boolean b = v.remove(Object o) : 벡터에 저장되어있는 o를 제거한다. 제거에 성공하면 true 실패하면 false를 반환한다.
+- boolean b = v.isEmpty() : 벡터가 비어있으면 true, 아니면 false를 반환한다.
+- Object o = v.get(int index) : index에 위치한 값을 반환한다.
+- int n = v.size(); : 벡터에 저장된 객체의 개수를 반환한다.
