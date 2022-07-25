@@ -70,7 +70,7 @@ class Fighter implements Fightable {
 
 
 
-모두 구현하지 않을경우 class앞에 abstract를 붙여야 함.
+모두 구현하지 않을경우 class앞에 abstract를 붙여야 하며 상속과 구현을 동시에 할 수 있다.
 
 ```java
 abstract class AbFighter implements Fightable {
@@ -414,3 +414,4 @@ class Dropship extends AirUnit implements Repairable {
 
 1. 여러 인터페이스의 디폴트 메서드 간의 충돌 : 인터페이스를 구현한 클래스에서 디폴트메서드를 오버라이딩. 
 2. 디폴트 메서드와 조상 클래스의 메서드 간의 충돌 : 조상 클래스의 메서드가 상속되고 디폴트 메서드는 무시됨.
+
