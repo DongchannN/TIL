@@ -232,3 +232,28 @@ class Main {
 
 
 
+### 익명 클래스
+
+클래스의 선언과 객체의 생성을 동시에 하기 때문에 단 한번만 사용될 수 있고 오직 하나의 객체만을 생성할 수 있는 일회용 클래스이다.
+
+```java
+new 조상클래스이름OR구현인터페이스이름 () {
+  //멤버선언
+}
+```
+
+이름이 없어 생성자를 가질 수 없으며 단 하나의 인터페이스를 가지거나 클래스를 상속받을 수 있다.
+
+```java
+class Main {
+  Object iv = new Object() { void method() };
+  static Object cv = new Object() { void method() };
+  
+  void myMethod() {
+    Object lv = new Object() { void method() };
+  }
+}
+```
+
+
+
