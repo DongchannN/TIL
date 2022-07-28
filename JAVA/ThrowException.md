@@ -128,6 +128,8 @@ method1종료 후 main복귀.
 
 try블럭에서 return문이 실행된다 하더라도 finally문이 실행된 후에 메서드가 종료되는 것을 볼 수 있다. 마찬가지로 catch블럭에서 return문이 실행되어도 finally문은 실행된다.
 
+
+
 ##### 자동 자원 반환(try-with-resources). JDK1.7부터
 
 ```java
@@ -160,6 +162,8 @@ try {
 
 이렇게 finally 안에 try-catch문을 넣으면 코드가 복잡해져 보기에 좋지 않다. 또한 try블럭과 finally블럭에서 모두 예외가 발생하면 try블럭의 예외는 무시가 된다. 그래서 아래와 같이 try-with-resources문이 등장하였다
 
+
+
 ```java
 try (FileInputStream fis = new FileInputStream("score.dat");
      DataInputStream dis = new DataInputStream(fis);) {
@@ -172,6 +176,98 @@ try (FileInputStream fis = new FileInputStream("score.dat");
   System.out.println("점수의 총합 : " + sum);
 } catch (IOException ie) {
   ie.printStackTrace();
+}
+```
+
+위와 같이 ()안에 객체를 생성하는 문장을 넣으면 이 객체는 따로  close()를 호출하지 않아도 try블럭을 벗어나는 순간 자동적으로 close() 가 호출이 된다. 그 다음 catch블럭 또는 finally블럭이 수행이 된다.
+
+이처럼 try-with-resources문에 의해 자동으로 객체의 close()가 호출될 수 있으려면 클래스가 AutoCloseable이라는 인터페이스를 구현해야한다.
+
+
+
+##### 사용자 정의 예외 만들기
+
+필요에 따라 프로그래머가 예외를 만들 수 있다. 보통 Exception클래스로부터 상속받는 클래스를 만들지만 필요에 따라 알맞는 예외클래스를 선택한다.
+
+```java
+class MyException extends Exception {
+  MyException(String msg) {  //문자열을 매개변수로 받음(생성자.)
+    super(msg); //조상(Exception)의 생성자 호출.
+  }
+}
+```
+
+```java
+class MyException extends Exception {
+  private final int ERR_CODE; //밑에 있는 생성자를 통해 초기화 (캡슐화.)
+  
+  MyException(String msg, int errCode) {
+    super(msg);
+    ERR_CODE = errCode;
+  }
+  
+  MyException(String msg) {
+    this(msg,100); //위에 있는 생성자를 호출해 에러코드를 100으로 초기화한다.
+  }
+  
+  public int getErrCode() { //메서드를 통하여 에러코드를 알 수 있다.
+    return ERR_CODE;
+  }
+}
+```
+
+
+
+
+
+```java
+class Main {
+  public static void main(String[] args) {
+    try {
+      startInstall();
+      copyFiles();
+    } catch(SpaceException e) {
+      System.out.println("에러 메시지 : " + e.getMessage());
+      e.printStackTrace();
+      System.out.println("공간을 확보하세요.");
+    } catch(MemoryException me) {
+      System.out.println("에러 메시지 : " + me.getMessage());
+      me.printStackTrace();
+      System.gc(); //Garbage Collection을 수행해 메모리를 늘려준다.
+      System.out.println("다시 설치를 시도하세요.");
+    } finally {
+      deleteTempFiles(); //프로그램 설치에 사용된 파일들을 삭제한다.
+    }
+  }
+  
+  static void startInstall() throws SpaceException, MemoryException {
+    if(!enoughSpace())
+      throw new SpaceException("설치할 공간이 부족합니다.");
+    if(!enoughMemory())
+      throw new MemoryException("메모리가 부족합니다.");
+  }
+  
+  static void copyFiles() {  }
+  static void deleteFiles() {  }
+  
+  static boolean enoughSpace() {
+    return false;
+  }
+  static boolean enoughMemory() {
+    return true;
+  }
+}
+
+class SpaceException extends Exception {
+  SpaceException(String msg) {
+    super(msg);
+  }
+}
+
+class MemoryException extends Exception {
+  MemoryException(String msg) {
+    super(msg);
+  }
 }
 ```
 
