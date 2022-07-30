@@ -273,3 +273,34 @@ class MemoryException extends Exception {
 
 
 
+##### 예외 되던지기
+
+한 메서드에서 발생 할 수 있는 예외가 여러개일 때, 몇개는 try-catch문을 통해 메서드 내에서 자체적으로 처리하고, 나머지는 선언부에 지정하여 호출한 메서드에서 처리하도록 양쪽으로 나누어 처리가 가능하다.
+
+심지어 단 하나의 예외에 대해서도 양쪽에서 처리하도록 할 수 있다. 이것은 예외를 처리한 후에 인ㅇ위적으로 다시 발생시키는 방법을 통해 가능한데 이것을 "예외 되던지기" 라고 한다.
+
+이 예외 되던지기 방법은 하나의 예외에 대해 예외가 발생한 메서드와 이를 호출한 메서드 양쪽에서 처리ㅣ해줘야 할 작업이 있을 때 사용된다.
+
+```java
+class Main {
+  public static void main(String[] args) {
+    try {
+      method1();
+    } catch(Exception e) {
+      System.out.println("main에서 예외 처리.");
+    }
+  }
+  
+  static void method1() throws Exception {
+    try {
+      throw new Exception();
+    } catch(Exceptoin e) {
+      System.out.println("method1에서 예외 처리");
+      throw e; //다시 예외를 발생시킴.
+    }
+  }
+}
+```
+
+위 코드에서는 method1, main 두 메서등에서 catch블럭이 수행되었다. method1에서 예외가 발생하고 catch에서 처리를 했음에도 main에서 한번 더 처리를 하였다.
+
