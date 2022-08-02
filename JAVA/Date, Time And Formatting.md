@@ -35,3 +35,26 @@ Calendar cal = Calendar.getInstance();
 cal.setTime(d);
 ```
 
+
+
+```java
+import java.util.*;
+
+class Main {
+  public static void main(String[] args) {
+    //현재의 날짜, 시간으로 설정.
+    Calendar today = Calendar.getInstance();
+    
+    System.out.println("Year : " + today.get(Calendar.YEAR));
+    System.out.println("Month-1 : " + today.get(Calendar.MONTH));
+    System.out.println("Week of Year : " + today.get(Calendar.WEEK_OF_YEAR));
+    System.out.println("Week of Month : " + today.get(Calendar.WEEK_OF_MONTH));
+    System.out.println("Day of Month : " + today.get(Calendar.DAY_OF_MONTH));
+    System.out.println("Hour(0-11) : " + today.get(Calendar.HOUR));
+    System.out.println("Hour(0-23) : " + today.get(Calendar.HOUR_OF_DAY));
+    System.out.println("Minute : " + today.get(Calendar.MINUTE));
+  }
+}
+```
+
+getInstance로 얻은 인스턴스는 기본적으로 현재 시스템의 날짜와 시간에 대한 정보를 담고있다. 원하는 날짜나 시간으로 사용하려면 set, 원하는 값을 가져오려면 get을 이용하면 된다.
