@@ -1,35 +1,27 @@
-public class JavaPlayGround implements Runnable {
-    static boolean autoSave = false;
-    public static void main(String[] args) {
-        Thread t = new Thread(new JavaPlayGround());
-        t.setDaemon(true);
-        t.start();
+import javax.swing.JOptionPane;
 
-        for (int i = 0; i <= 10; i++) {
+public class JavaPlayGround {
+    public static void main(String[] args) {
+        Thread1 t1 = new Thread1();
+        t1.start();
+
+        String input = JOptionPane.showInputDialog("input message");
+        System.out.println("input : " + input);
+        t1.interrupt();
+        System.out.println("t1's Interrupted : " + t1.isInterrupted());
+
+    }
+}
+
+class Thread1 extends Thread{
+    public void run() {
+        int i = 10;
+        while (i != 0 && !isInterrupted()) {
+            System.out.println(i--);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) { }
-            System.out.println(i);
-
-            if(i == 4)
-                autoSave = true;
         }
-        System.out.println("terminate program.");
-    }
-
-    public void run() {
-        while (true) {
-            try {
-                Thread.sleep(3 * 1000);
-            } catch (InterruptedException e) { }
-
-            if(autoSave) {
-                autoSave();
-            }
-        }
-    }
-
-    public void autoSave() {
-        System.out.println("auto saved.");
+        System.out.println("Count Done.");
     }
 }

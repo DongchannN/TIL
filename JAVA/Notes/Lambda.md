@@ -82,3 +82,71 @@ interface MyFuntion {
 
 
 
+```java
+@FunctionalInterface
+interface MyFunction {
+    void run();
+}
+```
+
+위 코드와 같이 함수형 인터페이스가 정의 되어있을 때 아래의 코드와 같이 매개변수가 MyFunction타입이라면 이 메서드를 호출 할 때 람다식을 참조하는 참조변수를 매개변수로 지정해야한다는 것이다.
+
+```java
+static void execute(MyFunction f) {
+        f.run();
+    }
+
+//람다식을 이용해 인터페이스를 완성한 참조변수 생성
+MyFunction f = () -> System.out.println("run()"); 
+//참조변수를 이용해 메서드 호출
+execute(f);
+```
+
+위의 두줄로 이루어진 코드를 아래와 같이 참조변수 없이 직접 람다식을 매개변수로 지정할 수도 있다.
+
+```java
+execute( () -> System.out.println("run()") );
+```
+
+
+
+```java
+@FunctionalInterface
+interface MyFunction {
+    void run();
+}
+
+public class JavaPlayGround {
+    static void execute(MyFunction f) {
+        f.run();
+    }
+
+    static MyFunction getMyFunction() {
+        //MyFunction f = () -> System.out.println("f3.run()");
+        //return f;
+        //위의 두줄을 아래의 한줄로 줄일 수 있다.
+      	return () -> Syste,.out.println("f3.run()");
+    }
+    public static void main(String[] args) {
+
+        MyFunction f1 = () -> System.out.println("f1.run()");
+
+        MyFunction f2 = new MyFunction() {
+            public void run() {
+                System.out.println("f2.run()");
+            }
+        };
+
+        MyFunction f3 = getMyFunction();
+
+        f1.run();
+        f2.run();
+        f3.run();
+
+        execute(f1);
+        execute( ()  -> System.out.println("run()"));
+    }
+
+}
+```
+
