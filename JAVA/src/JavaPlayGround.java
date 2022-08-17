@@ -20,8 +20,10 @@ class Thread1 extends Thread{
             System.out.println(i--);
             try {
                 Thread.sleep(1000);
+                Thread.suspend();
             } catch (InterruptedException e) { }
         }
         System.out.println("Count Done.");
     }
+
 }

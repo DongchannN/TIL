@@ -169,3 +169,18 @@ class Thread1 extends Thread{
 이 코드를 실행시켜보면 반복문을 sleep()으로만 변경해줬음에도 입력한 후에 계속 카운트다운이 종료되지 않고있다. 
 
 그 이유는 Thread.sleep()에 의해 쓰레드가 잠시 멈춰있을 때 interrupt()를 호출하면 InterruptedException이 발생하기 때문이다. 그리고 InterruptedException이 발생하면 쓰레드의 interrupted상태는 false로 자동초기화가 된다. 이와 같은 경우에는 catch구문에 interrupt()를 추가로 넣어줘 interrupted상태를 다시 true로 바꾸어 주면 된다.
+
+
+
+- suspend(), resume(), stop()
+
+suspend()는 sleep()처럼 쓰레드를 멈추게함. suspend()에 의해 정지된 쓰레드는 resume()을 호출해 다시 실행대기상태가 될 수 있다. stop()은 호출되는 즉시 쓰레드가 종료된다.
+
+이 세가지 메서드는 사용이 권장되지 않는다
+
+
+
+- yield() -자신에게 주어진 실행시간을  다른 쓰레드에 양보.
+
+1초의 실행시간을 받은 쓰레드가 0.5초를 수행한 도중 yield가 호출되면 다시 실행대기열로 돌아간다.
+
