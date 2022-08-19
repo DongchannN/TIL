@@ -1,29 +1,36 @@
-import javax.swing.JOptionPane;
+import java.util.*;
+
 
 public class JavaPlayGround {
     public static void main(String[] args) {
-        Thread1 t1 = new Thread1();
-        t1.start();
+        Vector v = new Vector(5); // 크기가 5인 벡터 생성.
 
-        String input = JOptionPane.showInputDialog("input message");
-        System.out.println("input : " + input);
-        t1.interrupt();
-        System.out.println("t1's Interrupted : " + t1.isInterrupted());
+        v.add("1");
+        v.add("2");
+        v.add("3");
 
+        print(v);
+
+        v.trimToSize(); //빈공간을 없앤다.
+        System.out.println("after trimToSize");
+        print(v);
+
+        v.ensureCapacity(6); //capacity가 최소한 6이 되게한다.
+        System.out.println("After ensureCapacity");
+        print(v);
+
+        v.setSize(7); //사이즈가 6이 되게한다. 여기서는 capacity가 부족하므로 2배 늘려 12로 만든다.
+        System.out.println("After setSize");
+        print(v);
+
+        v.clear();
+        System.out.println("After Clear");
+        print(v);
     }
-}
 
-class Thread1 extends Thread{
-    public void run() {
-        int i = 10;
-        while (i != 0 && !isInterrupted()) {
-            System.out.println(i--);
-            try {
-                Thread.sleep(1000);
-                Thread.suspend();
-            } catch (InterruptedException e) { }
-        }
-        System.out.println("Count Done.");
+    public static void print(Vector vector) {
+        System.out.println(vector);
+        System.out.println("size : " + vector.size());
+        System.out.println("capacity : " + vector.capacity());
     }
-
 }

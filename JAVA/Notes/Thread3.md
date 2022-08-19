@@ -184,3 +184,82 @@ suspend()는 sleep()처럼 쓰레드를 멈추게함. suspend()에 의해 정지
 
 1초의 실행시간을 받은 쓰레드가 0.5초를 수행한 도중 yield가 호출되면 다시 실행대기열로 돌아간다.
 
+```java
+import javax.swing.JOptionPane;
+
+public class JavaPlayGround {
+    public static void main(String[] args) {
+        Thread1 th1 = new Thread1("*");
+        Thread1 th2 = new Thread1("**");
+        Thread1 th3 = new Thread1("***");
+
+        th1.start();
+        th2.start();
+        th3.start();
+
+        try {
+            Thread.sleep(2000);
+            th1.suspend();
+            Thread.sleep(2000);
+            th2.suspend();
+            Thread.sleep(3000);
+            th1.resume();
+            Thread.sleep(3000);
+            th1.stop();
+            th2.stop();
+            Thread.sleep(2000);
+            th3.stop();
+        } catch (InterruptedException e) {}
+    }
+}
+
+class Thread1 implements Runnable{
+    boolean suspended = false;
+    boolean stopped = false;
+
+    Thread th;
+
+    Thread1(String name) {
+        //Thread(Runnable r, String name)
+        th = new Thread(this, name);
+    }
+
+    public void run() {
+        String name = th.getName();
+        while (!stopped) {
+            if (!suspended) {
+                System.out.println(name);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    System.out.println(name + " - interrupted");
+                }
+            } else {
+                Thread.yield();
+            }
+        }
+        System.out.println(name + "- stopped.");
+    }
+
+    public void suspend() {
+        suspended = true;
+        th.interrupt();
+        System.out.println(th.getName() + "- interrupt() by suspend");
+    }
+
+    public void stop() {
+        stopped = true;
+        th.interrupt();
+        System.out.println(th.getName() + "- interrupt() by stop");
+    }
+
+    public void resume() {
+        suspended = false;
+    }
+
+    public void start() {
+        th.start();
+    }
+}
+```
+
